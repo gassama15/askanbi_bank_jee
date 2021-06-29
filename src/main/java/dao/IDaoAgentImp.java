@@ -68,16 +68,18 @@ public class IDaoAgentImp implements IDaoAgent {
 	}
 
 	@Override
-	public void supprimer(int id) {
+	public boolean supprimer(int id) {
+		boolean rowDeleted = false;
 		try {
 			Database db = Database.getInstance();
 			db.myPrepareStatement(DELETE_AGENT_SQL);
 			Integer[] parameters = {id};
 			db.addParameters(parameters);
-			db.myExecuteUpdate();
+			rowDeleted = db.myExecuteUpdate() > 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return rowDeleted;
 		
 	}
 

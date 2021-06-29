@@ -8,6 +8,7 @@ import utils.Database;
 public class IDaoUserImp implements IDaoUser {
 	
 	private static final String INSERT_USER_SQL =  "INSERT INTO user VALUES (null, ?, ?, ?)";
+	private static final String DELETE_USER_SQL =  "DELETE FROM user WHERE id = ?";
 
 	@Override
 	public boolean save(User t) {
@@ -37,9 +38,18 @@ public class IDaoUserImp implements IDaoUser {
 	}
 
 	@Override
-	public void supprimer(int id) {
-		// TODO Auto-generated method stub
-		
+	public boolean supprimer(int id) {
+		boolean rowDeleted = false;
+		Database db = Database.getInstance();
+		try {
+			db.myPrepareStatement(DELETE_USER_SQL);
+			Integer[] parameters = {id};
+			db.addParameters(parameters);
+			rowDeleted = db.myExecuteUpdate() > 0;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return rowDeleted;
 	}
 
 	@Override

@@ -154,8 +154,10 @@ public class AgentServlet extends HttpServlet {
 	private void deleteAgent(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
 		int id = Integer.parseInt(request.getParameter("id"));
+		int user_id = agentDao.selectAgentById(id).getUser_id();
 		try {
 			agentDao.supprimer(id);
+			userDao.supprimer(user_id);
 		} catch (Exception e) {
 			 e.printStackTrace();
 		}

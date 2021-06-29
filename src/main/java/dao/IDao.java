@@ -6,5 +6,5 @@ public interface IDao<T> {
 	public boolean save(T t);
 	public ArrayList<T> liste();
 	public T modifier(T t);
-	public void supprimer(int id);
+	public boolean supprimer(int id);
 }
