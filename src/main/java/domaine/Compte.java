@@ -62,7 +62,7 @@ public class Compte {
 	}
 
 
-	public boolean isStatut() {
+	public boolean getStatut() {
 		return statut;
 	}
 

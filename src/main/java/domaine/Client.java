@@ -7,9 +7,9 @@ public class Client {
 	private String prenom;
 	private String adresse;
 	private String tel;
-	private String cni;
+	private int cni;
 	private String email;
-	private String typeClien;
+	private String typeClient;
 	private int user_id ;
 	
 	
@@ -17,7 +17,7 @@ public class Client {
 	}
 
 
-	public Client(String nom, String prenom, String adresse, String tel, String cni, String email, String typeClien,
+	public Client(String nom, String prenom, String adresse, String tel, int cni, String email, String typeClient,
 			int user_id) {
 		super();
 		this.nom = nom;
@@ -26,13 +26,13 @@ public class Client {
 		this.tel = tel;
 		this.cni = cni;
 		this.email = email;
-		this.typeClien = typeClien;
+		this.typeClient = typeClient;
 		this.user_id = user_id;
 	}
 
 
-	public Client(int idClient, String nom, String prenom, String adresse, String tel, String cni, String email,
-			String typeClien, int user_id) {
+	public Client(int idClient, String nom, String prenom, String adresse, String tel, int cni, String email,
+			String typeClient, int user_id) {
 		super();
 		this.idClient = idClient;
 		this.nom = nom;
@@ -41,7 +41,7 @@ public class Client {
 		this.tel = tel;
 		this.cni = cni;
 		this.email = email;
-		this.typeClien = typeClien;
+		this.typeClient = typeClient;
 		this.user_id = user_id;
 	}
 
@@ -86,12 +86,12 @@ public class Client {
 	}
 
 
-	public String getCni() {
+	public int getCni() {
 		return cni;
 	}
 
 
-	public void setCni(String cni) {
+	public void setCni(int cni) {
 		this.cni = cni;
 	}
 
@@ -106,13 +106,13 @@ public class Client {
 	}
 
 
-	public String getTypeClien() {
-		return typeClien;
+	public String getTypeClient() {
+		return typeClient;
 	}
 
 
-	public void setTypeClien(String typeClien) {
-		this.typeClien = typeClien;
+	public void setTypeClient(String typeClient) {
+		this.typeClient = typeClient;
 	}
 
 
