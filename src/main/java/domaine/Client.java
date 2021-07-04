@@ -7,7 +7,7 @@ public class Client {
 	private String prenom;
 	private String adresse;
 	private String tel;
-	private int cni;
+	private String cni;
 	private String email;
 	private String typeClient;
 	private int user_id ;
@@ -17,7 +17,7 @@ public class Client {
 	}
 
 
-	public Client(String nom, String prenom, String adresse, String tel, int cni, String email, String typeClient,
+	public Client(String nom, String prenom, String adresse, String tel, String cni, String email, String typeClient,
 			int user_id) {
 		super();
 		this.nom = nom;
@@ -31,7 +31,7 @@ public class Client {
 	}
 
 
-	public Client(int idClient, String nom, String prenom, String adresse, String tel, int cni, String email,
+	public Client(int idClient, String nom, String prenom, String adresse, String tel, String cni, String email,
 			String typeClient, int user_id) {
 		super();
 		this.idClient = idClient;
@@ -86,12 +86,12 @@ public class Client {
 	}
 
 
-	public int getCni() {
+	public String getCni() {
 		return cni;
 	}
 
 
-	public void setCni(int cni) {
+	public void setCni(String cni) {
 		this.cni = cni;
 	}
 

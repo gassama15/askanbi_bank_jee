@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import dao.IDaoAgenceImp;
 import dao.IDaoAgentImp;
 import dao.IDaoClientImp;
@@ -28,7 +29,7 @@ import utils.Database;
 /**
  * Servlet implementation class ClientCompteServlet
  */
-@WebServlet({"/client_new", "/client_insert"})
+@WebServlet({"/client_new", "/client_insert", "/client_liste", "/client_show"})
 public class ClientCompteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IDaoAgentImp agentDao;
@@ -68,12 +69,20 @@ public class ClientCompteServlet extends HttpServlet {
 		
 		try {
 			switch (action) {
+			case "/client_liste":
+				listeClient(request, response);
+				break;
+
 			case "/client_new":
 				showNewForm(request, response);
 				break;
-
+				
 			case "/client_insert":
 				insertClientandCompte(request, response);
+				break;
+				
+			case "/client_show":
+				showDetails(request, response);
 				break;
 				
 			default:
@@ -107,7 +116,7 @@ public class ClientCompteServlet extends HttpServlet {
 		String prenom = request.getParameter("prenom");
 		String adresse = request.getParameter("adresse");
 		String tel = request.getParameter("tel");
-		int cni = Integer.parseInt(request.getParameter("cni"));
+		String cni = request.getParameter("cni");
 		String email = request.getParameter("email");
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
@@ -143,7 +152,31 @@ public class ClientCompteServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("client_new");
+		response.sendRedirect("client_liste");
+	}
+	
+	private void listeClient(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		ArrayList<Client> clients = clientDao.liste();
+		request.setAttribute("clients", clients);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("client_compte/liste-client.jsp");
+		dispatcher.forward(request, response);
+	}
+	
+	
+	private void showDetails(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
+		Client client = null;
+		Compte compte = null;
+		int id = Integer.parseInt(request.getParameter("id"));
+		client = clientDao.selectClientById(id);
+		compte = compteDao.selectCompteByIdClient(client.getIdClient());
+		ArrayList<TypeCompte> typeComptes = typeDao.liste();
+		request.setAttribute("client", client);
+		request.setAttribute("compte", compte);
+		request.setAttribute("typeComptes", typeComptes);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("client_compte/show-details.jsp");
+		dispatcher.forward(request, response);
 	}
 
 
