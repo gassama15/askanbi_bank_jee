@@ -10,6 +10,7 @@ public class IDaoAgentImp implements IDaoAgent {
 	private static final String INSERT_AGENT_SQL =  "INSERT INTO agent VALUES (null, ?, ?, ?, ?, ?)";
 	private static final String SELECT_ALL_AGENTS = "SELECT * FROM agent";
 	private static final String SELECT_AGENT_BY_ID = "SELECT * FROM agent WHERE idAgent=?";
+	private static final String SELECT_AGENT_BY_USER_ID = "SELECT * FROM agent WHERE user_id=?";
 	private static final String UPDATE_AGENT_SQL = "UPDATE agent SET num_agent=?, nom=?, prenom=?, idAgence=? WHERE idAgent=?";
 	private static final String DELETE_AGENT_SQL = "DELETE FROM agent WHERE idAgent=?";
 
@@ -99,6 +100,31 @@ public class IDaoAgentImp implements IDaoAgent {
 				String prenom = rs.getString("prenom");
 				int idAgence = rs.getInt("idAgence");
 				int user_id = rs.getInt("user_id");
+				agent = new Agent(idAgent, num_agent, nom, prenom, idAgence, user_id);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return agent;
+	}
+
+	@Override
+	public Agent selectAgentByUserId(int user_id) {
+		Agent agent = null;
+		try {
+			Database db = Database.getInstance();
+			db.myPrepareStatement(SELECT_AGENT_BY_USER_ID);
+			Integer[] parameters = {user_id};
+			db.addParameters(parameters);
+			ResultSet rs = db.myExecuteQuery();
+			
+			while (rs.next()) {
+				int num_agent = rs.getInt("num_agent");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				int idAgence = rs.getInt("idAgence");
+				int idAgent = rs.getInt("idAgent");
 				agent = new Agent(idAgent, num_agent, nom, prenom, idAgence, user_id);
 			}
 			

@@ -6,38 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Liste | Agent</title>
-<link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        referrerpolicy="no-referrer" />
+<%@include file="../layouts/cdnlinks.jsp" %>
 </head>
 <body>
 
-<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Askan Bi Bank</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-					aria-controls="navbarColor01" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarColor01">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item"><a class="nav-link active" href="<%request.getContextPath();%>/list">Liste Agences</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Features</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
+<%@include file="../layouts/header.jsp" %>
 	
 	<div class="container">
+	<%
+        	if(session.getAttribute("user") == null){
+        		response.sendRedirect("login");
+        	}
+        %>
 		<table class="table table-striped">
 			<thead>
 				<tr>

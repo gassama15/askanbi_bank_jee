@@ -6,36 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title>Formulaire | Client | Compte</title>
-<link rel="stylesheet" href="https://bootswatch.com/5/flatly/bootstrap.min.css">
+<%@include file="../layouts/cdnlinks.jsp" %>
 </head>
 <body>
 
-<header>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-			<div class="container-fluid">
-				<a class="navbar-brand" href="#">Askan Bi Bank</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarColor01"
-					aria-controls="navbarColor01" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-
-				<div class="collapse navbar-collapse" id="navbarColor01">
-					<ul class="navbar-nav me-auto">
-						<li class="nav-item"><a class="nav-link active" href="<%request.getContextPath();%>/list">Liste Agences</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">Features</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="#">About</a></li>
-					</ul>
-				</div>
-			</div>
-		</nav>
-	</header>
+<%@include file="../layouts/header.jsp" %>
 	
 	<div class="container">
+	<%
+        	if(session.getAttribute("user") == null){
+        		response.sendRedirect("login");
+        	}
+        %>
     <form action="client_insert" method="POST">
         <div class="row">
             <div class="col-md-6">
@@ -127,7 +109,12 @@
                         <select class="form-select" name="idAgence" id="idAgence">
                             <option>Sélecionner votre agence</option>
                             <c:forEach var="agence" items="${agences}">
-                            <option value="<c:out value='${agence.idAgence}'/>"><c:out value="${agence.nom}" /></option>
+                            <option value="<c:out value='${agence.idAgence}'/>" ${sessionScope['agent'].idAgence ==
+                                        agence.idAgence
+                                            ? 'selected'
+                                            : ''}>
+                            <c:out value="${agence.nom}" />
+                            </option>
                             </c:forEach>
                         </select>
                     </div>
@@ -136,7 +123,10 @@
                         <select class="form-select" name="idAgent" id="idAgent">
                             <option>Sélecionner votre agent</option>
                             <c:forEach var="agent" items="${agents}">
-                            <option value="<c:out value='${agent.idAgent}'/>"><c:out value="${agent.nom}" /></option>
+                            <option value="<c:out value='${agent.idAgent}'/>" ${sessionScope['user'].id ==
+                                        agent.user_id
+                                            ? 'selected'
+                                            : ''}><c:out value="${agent.nom}" /></option>
                             </c:forEach>
                         </select>
                     </div>
