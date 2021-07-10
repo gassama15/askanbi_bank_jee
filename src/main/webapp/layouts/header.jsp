@@ -52,7 +52,27 @@
                             <a class="dropdown-item" href="<%request.getContextPath();%>/sunubank/operation_new">Nouvelle
                                 opération</a>
                             <a class="dropdown-item"
-                                href="">Consultation
+                                href="<%request.getContextPath();%>/sunubank/consult">Consultation
+                                Solde</a>
+                        </div>
+                    </li>
+					</c:if>
+					<c:if test="${sessionScope['user'].role == 'client'}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Historiques</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="<%request.getContextPath();%>/sunubank/all_history">Toutes les historiques</a>
+                            <a class="dropdown-item" href="<%request.getContextPath();%>/sunubank/retrait_history">Historiques des retraits</a>
+                            <a class="dropdown-item" href="<%request.getContextPath();%>/sunubank/depot_history">Historiques des depots</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">Gestion des opérations</a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                                href="<%request.getContextPath();%>/sunubank/consult_solde">Consultation
                                 Solde</a>
                         </div>
                     </li>

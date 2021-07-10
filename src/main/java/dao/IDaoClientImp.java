@@ -11,6 +11,7 @@ public class IDaoClientImp implements IDaoClient {
 	private static final String INSERT_CLIENT_SQL = "INSERT INTO client VALUES (null, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String SELECT_ALL_CLIENT = "SELECT * FROM client ORDER BY idClient DESC";
 	private static final String SELECT_CLIENT_BY_ID = "SELECT * FROM client WHERE idClient = ?";
+	private static final String SELECT_CLIENT_BY_USER_ID = "SELECT * FROM client WHERE user_id = ?";
 
 	@Override
 	public boolean save(Client t) {
@@ -90,6 +91,35 @@ public class IDaoClientImp implements IDaoClient {
 				int user_id = rs.getInt("user_id");
 				
 				client = new Client(id, nom, prenom, adresse, tel, cni, email, typeClient, user_id);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return client;
+	}
+
+	@Override
+	public Client selectClientByUserId(int idUser) {
+		Client client = null;
+		try {
+			Database db = Database.getInstance();
+			db.myPrepareStatement(SELECT_CLIENT_BY_USER_ID);
+			Integer[] parameters = {idUser};
+			db.addParameters(parameters);
+			ResultSet rs = db.myExecuteQuery();
+			
+			while (rs.next()) {
+				int idClient = rs.getInt("idClient");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
+				String adresse = rs.getString("adresse");
+				String tel = rs.getString("tel");
+				String cni = rs.getString("cni");
+				String email = rs.getString("email");
+				String typeClient = rs.getString("typeClient");
+				int user_id = rs.getInt("user_id");
+				
+				client = new Client(idClient, nom, prenom, adresse, tel, cni, email, typeClient, user_id);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

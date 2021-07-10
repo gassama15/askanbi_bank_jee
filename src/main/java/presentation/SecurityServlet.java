@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.IDaoAgentImp;
+import dao.IDaoClientImp;
 import dao.IDaoUserImp;
 import domaine.Agent;
+import domaine.Client;
 import domaine.User;
 
 /**
@@ -23,6 +25,7 @@ public class SecurityServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private IDaoUserImp userDao;
 	private IDaoAgentImp agentDao;
+	private IDaoClientImp clientDao;
        
 	/**
 	 * @see Servlet#init(ServletConfig)
@@ -30,6 +33,7 @@ public class SecurityServlet extends HttpServlet {
 	public void init() throws ServletException {
 		userDao = new IDaoUserImp();
 		agentDao = new IDaoAgentImp();
+		clientDao = new IDaoClientImp();
 	}
 
 	/**
@@ -82,13 +86,20 @@ public class SecurityServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		User user;
 		Agent agent;
+		Client client;
 		try {
 			user = userDao.authenticate(login, password);
 			if(user != null) {
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
-				agent = agentDao.selectAgentByUserId(user.getId());
-				session.setAttribute("agent", agent);
+				if (user.getRole().equals("user") || user.getRole().equals("admin")) {
+					agent = agentDao.selectAgentByUserId(user.getId());					
+					session.setAttribute("agent", agent);
+				}
+				if (user.getRole().equals("client")) {
+					client = clientDao.selectClientByUserId(user.getId());					
+					session.setAttribute("client", client);
+				}
 				response.sendRedirect("home");
 			} else {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("security/login.jsp");

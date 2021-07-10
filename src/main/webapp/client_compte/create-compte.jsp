@@ -154,6 +154,7 @@
             <div class="d-grid p-3">
                 <button class="btn btn-primary btn-lg">Créer</button>
             </div>
+            </div>
     </form>
 </div>
 	

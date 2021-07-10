@@ -26,7 +26,10 @@
                         <select class="form-select" name="idAgent" id="idAgent">
                             <option>Sélecionner votre agent</option>
                             <c:forEach var="agent" items="${agents}">
-                            <option value="<c:out value='${agent.idAgent}'/>"><c:out value="${agent.nom}" /></option>
+                            <option value="<c:out value='${agent.idAgent}'/>" ${sessionScope['user'].id ==
+                                        agent.user_id
+                                            ? 'selected'
+                                            : ''}><c:out value="${agent.nom}" /></option>
                             </c:forEach>
                         </select>
                     </div>
